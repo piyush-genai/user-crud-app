@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "User CRUD API - FastAPI MongoDB",
+    "description": "Complete API collection for Employee Management System\n\nFlow: Postman → FastAPI → Router → Service → Repository → MongoDB",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_name\": \"John Doe\",\n  \"address\": \"123 Main St, Springfield, IL 62701\",\n  \"employee_id\": \"EMP001\",\n  \"salary\": 75000.50,\n  \"gender\": \"Male\",\n  \"joining_date\": \"2024-01-15\",\n  \"active_status\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["users"]
+        },
+        "description": "Create a new user with all 8 required fields"
+      }
+    },
+    {
+      "name": "2. Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["users"]
+        },
+        "description": "Retrieve all users from MongoDB"
+      }
+    },
+    {
+      "name": "3. Get User by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/users/{{user_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["users", "{{user_id}}"]
+        },
+        "description": "Get specific user by MongoDB ObjectId. Replace {{user_id}} with actual ID from Create User response"
+      }
+    },
+    {
+      "name": "4. Update User",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"salary\": 85000.00,\n  \"active_status\": false\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/users/{{user_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["users", "{{user_id}}"]
+        },
+        "description": "Partial update - only provided fields will be changed"
+      }
+    },
+    {
+      "name": "5. Upload Profile Photo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Select JPEG/PNG/WebP image (max 5MB)",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8000/users/{{user_id}}/photo",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["users", "{{user_id}}", "photo"]
+        },
+        "description": "Upload profile photo. Validates file type and size."
+      }
+    },
+    {
+      "name": "6. Delete User",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/users/{{user_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["users", "{{user_id}}"]
+        },
+        "description": "Delete user by ID"
+      }
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["health"]
+        },
+        "description": "Check if API is running"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
